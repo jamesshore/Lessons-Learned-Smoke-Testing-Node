@@ -1,8 +1,11 @@
 // Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
-/*global desc, task, jake, fail, complete */
+/*global desc, task, jake, fail, complete, directory */
 (function () {
 	"use strict";
+
+	var TEMP_TESTFILE_DIR = "generated/test";
+	directory(TEMP_TESTFILE_DIR);
 
 	desc("Build and test");
 	task("default", ["lint", "test"]);
@@ -21,7 +24,7 @@
 	});
 
 	desc("Test everything");
-	task("test", [], function () {
+	task("test", [TEMP_TESTFILE_DIR], function () {
 		var files = new jake.FileList();
 		files.include("**/_*_test.js");
 		files.exclude("node_modules");
